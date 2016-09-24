@@ -11,6 +11,10 @@ b = "tmp global variable for temp values";
 
 
 
+function include(arr,num) {
+    return (arr.length>num);
+}
+
 app.get('/', function(req, res) { //get light files function
   //command example: .get https://raw.githubusercontent.com/Creeplays/LK.BIN-Parser/master/Readme.md
 
@@ -81,7 +85,58 @@ app.get('/google', function(req, res) { // googling function
 });
 
 
+app.get('/man', function(req, res) { // googling function
+  // command example: .memes блеать, become a men, bleat
 
+
+  b = req.query.msg.slice(req.query.msg.search(/\s/) + 1);
+	
+	
+		listb = b.split(', ');
+		
+		var mass=new Array('блеать','подозрительно','повсюду','мтк','чтоесли', 'бухал', 'пиздабол', 'пиздюк');
+
+mass["блеать"] = "79265063";
+
+mass["подозрительно"] = "61520";
+
+mass["повсюду"] = "347390";
+
+mass["мтк"] = "101470";
+mass["пиздабол"] = "79273671";
+mass["пиздюк"] = "79273881";
+
+mass['чтоесли'] = "61583";
+mass['бухал'] = "79273483";
+
+  if(listb[0].trim()=='лист') {
+      res.send('answer:блеать подозрительно повсюду мтк чтоесли бухал пиздабол пиздюк')
+      return
+    
+  }
+
+		
+		
+   url1 = "https://api.imgflip.com/caption_image?max_font_size=60&template_id="+mass[listb[0].trim().replace(/\s/g, '')]+"&username=srt&password=kernels&text0=" + (include(listb,1)?( encodeURIComponent( listb[1] )):" ")+"&text1="+(include(listb,2)?( encodeURIComponent( listb[2] )):" ")
+
+
+
+  new Promise(function(resolve) {
+   
+    request(url1, function(error, response, body) {
+      if (!error) {
+        resolve(body);
+      }
+      else {
+        console.log(error);
+      }
+    });
+  }).then(function(response) {
+    
+    console.log(response)
+    res.send("img: :" + JSON.parse(response).data.url.replace(/:/g, '|'));
+  })
+});
 
 
 
