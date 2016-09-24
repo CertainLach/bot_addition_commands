@@ -94,32 +94,37 @@ app.get('/man', function(req, res) { // googling function
 	
 		listb = b.split(', ');
 		
-		var mass=new Array('блеать','подозрительно','повсюду','мтк','чтоесли', 'бухал', 'пиздабол', 'пиздюк');
+		var mass=new Array('блеать','подозрительно','повсюду','мтк','чтоесли', 'бухал', 'пиздабол', 'пиздюк', 'хуйхурма');
 
 mass["блеать"] = "79265063";
-
+mass["хуйхурма"] = "79275596";
 mass["подозрительно"] = "61520";
-
 mass["повсюду"] = "347390";
-
 mass["мтк"] = "101470";
 mass["пиздабол"] = "79273671";
 mass["пиздюк"] = "79273881";
-
 mass['чтоесли'] = "61583";
 mass['бухал'] = "79273483";
 
+
   if(listb[0].trim()=='лист') {
-      res.send('answer:блеать подозрительно повсюду мтк чтоесли бухал пиздабол пиздюк')
+      res.send('answer:'+mass.join(" "))
       return
     
   }
+  
+  
+  temp = mass[listb[0].trim().replace(/\s/g, '')];
+  if (!temp){
+       url1 = "https://api.imgflip.com/caption_image?max_font_size=60&template_id=79265063&username=srt&password=kernels&text0="+ encodeURIComponent("нет такой команды")+"&text1="+encodeURIComponent("блеать")
 
+  } else {
 		
-		
-   url1 = "https://api.imgflip.com/caption_image?max_font_size=60&template_id="+mass[listb[0].trim().replace(/\s/g, '')]+"&username=srt&password=kernels&text0=" + (include(listb,1)?( encodeURIComponent( listb[1] )):" ")+"&text1="+(include(listb,2)?( encodeURIComponent( listb[2] )):" ")
+   url1 = "https://api.imgflip.com/caption_image?max_font_size=60&template_id="+temp+"&username=srt&password=kernels&text0=" +
+   (include(listb,1)?( encodeURIComponent( listb[1] )):" ")+
+   "&text1="+(include(listb,2)?( encodeURIComponent( listb[2] )):" ")
 
-
+}
 
   new Promise(function(resolve) {
    
