@@ -63,6 +63,7 @@ app.get('/google', function(req, res) { // googling function
       links.each(function(i, link) {
         var url = $(link).attr("href");
         url = url.replace("/url?q=", "").split("&")[0];
+        //console.log(url);
         if ((url.charAt(0) === "/") || (i = links.length)) {
           resolve(mylist)
         }
@@ -71,6 +72,10 @@ app.get('/google', function(req, res) { // googling function
       });
     });
   }).then(function(response) {
+    
+    while (("answer:" + response.join("\n") + "\n More: " + url1).length >= 1500) response.pop();
+    console.log(response.join("\n"))
+    console.log(("answer:" + response.join("\n") + "\n More: " + url1).length)
     res.send("answer:" + response.join("\n") + "\n More: " + url1);
   })
 });
