@@ -7,7 +7,7 @@ var sleep = require('sleep');
 
 var app = express();
 
-b = "tmp global variawblqweeцуй for temp values";
+b = "хуй";
 
 function include(arr, num) {
   return (arr.length > num);
